@@ -10,7 +10,7 @@
 <body>
 	<h2>Create with Preparate Statement</h2>
 	
-	<form action="createServlet" method="post">
+	<form action="CreateServlet2" method="post">
 	<p>
 		<label for="txtIdEmployee">IdEmployee:</label><br />
 		<input type="text" id="txtIdEmployee" name="txtIdEmployee" disabled/>

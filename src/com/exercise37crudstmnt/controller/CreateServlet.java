@@ -11,12 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.exercise37crudstmnt.model.*;
+import com.exercise37crudstmnt.model.Employee;
 
 /***
  * Servlet that allows me to create an Employee into mySQL
  */
-@WebServlet("/CreateServlet")
+@WebServlet("/CreateServlet2")
 public class CreateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -49,8 +49,7 @@ public class CreateServlet extends HttpServlet {
 		int rowsAffected = 0;
 		String sentenciaSQLPreparedStatements = "insert into Empleados(nombreEmpleado, "
 				+ "edadEmpleado, domicilioEmpleado, salarioEmpleado, departamentoEmpleado) "
-				+ "values (?,?,?,?,?)";
-		
+				+ "values (?,?,?,?,?);";
 		
 		Connection conn = null;
 		PreparedStatement pstmnt = null;
@@ -60,6 +59,20 @@ public class CreateServlet extends HttpServlet {
 			DriverManager.getConnection(urlServer, nombreUsuario, password);
 			
 			pstmnt = conn.prepareStatement(sentenciaSQLPreparedStatements);
+			pstmnt.setString(1, myEmployee.getNameEmployee());
+			pstmnt.setInt(2,  myEmployee.getAgeEmployee());
+			pstmnt.setString(3, myEmployee.getAddressEmployee());
+			pstmnt.setDouble(4, myEmployee.getSalaryEmployee());
+			pstmnt.setString(5, myEmployee.getDepartmentEmployee());
+			
+			rowsAffected = pstmnt.executeUpdate();
+			
+			if(rowsAffected > 0) {
+				output.append("Registro añadido");
+			}else {
+				output.append("Registro falló");
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
